@@ -1,0 +1,86 @@
+/* Main Styles */
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Card Styles */
+.card {
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.card-header {
+    background-color: #f1f5f9;
+    font-weight: 600;
+}
+
+/* Navigation Styles */
+.nav-link {
+    color: #495057;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: #e9ecef;
+    border-radius: 4px;
+}
+
+/* Table Styles */
+.table {
+    margin-bottom: 0;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+}
+
+/* Button Styles */
+.btn-primary {
+    background-color: #0d6efd;
+}
+
+.btn-info {
+    color: #fff;
+}
+
+/* Modal Styles */
+.modal-header {
+    background-color: #f1f5f9;
+}
+
+/* Dashboard Cards */
+.bg-primary, .bg-success, .bg-info {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .col-md-3, .col-md-9 {
+        width: 100%;
+    }
+}
+
+/* Status badges */
+.badge {
+    font-size: 0.8rem;
+    padding: 0.35em 0.65em;
+}
+
+/* Form elements */
+.form-control:focus, .form-select:focus {
+    border-color: #86b7fe;
+    box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+}
+
+/* Section transitions */
+.section {
+    transition: all 0.3s ease;
+}

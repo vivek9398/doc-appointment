@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor OP Scheduling System</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header class="my-4">
+            <h1 class="text-center">Doctor OP Scheduling System</h1>
+        </header>
+
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card mb-4">
+                    <div class="card-header">
+                        Navigation
+                    </div>
+                    <div class="card-body">
+                        <ul class="nav flex-column">
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('dashboard')">Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('doctors')">Doctors</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('nurses')">Nurses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('appointments')">Appointments</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('tasks')">Tasks</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-9">
+                <!-- Dashboard Section -->
+                <div id="dashboard" class="section">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h2>Dashboard</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="card text-white bg-primary mb-3">
+                                        <div class="card-header">Today's Appointments</div>
+                                        <div class="card-body">
+                                            <h3 class="card-title">12</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card text-white bg-success mb-3">
+                                        <div class="card-header">Doctors Available</div>
+                                        <div class="card-body">
+                                            <h3 class="card-title">5</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="card text-white bg-info mb-3">
+                                        <div class="card-header">Pending Tasks</div>
+                                        <div class="card-body">
+                                            <h3 class="card-title">8</h3>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Doctors Section -->
+                <div id="doctors" class="section" style="display: none;">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2>Doctors</h2>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addDoctorModal">Add Doctor</button>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Specialization</th>
+                                        <th>Contact</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="doctorsList">
+                                    <tr>
+                                        <td>D001</td>
+                                        <td>Dr. John Smith</td>
+                                        <td>Cardiology</td>
+                                        <td>555-1234</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">View Schedule</button>
+                                            <button class="btn btn-sm btn-warning">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>D002</td>
+                                        <td>Dr. Sarah Johnson</td>
+                                        <td>Neurology</td>
+                                        <td>555-5678</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">View Schedule</button>
+                                            <button class="btn btn-sm btn-warning">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nurses Section -->
+                <div id="nurses" class="section" style="display: none;">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2>Nurses</h2>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addNurseModal">Add Nurse</button>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Assigned Doctor</th>
+                                        <th>Contact</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="nursesList">
+                                    <tr>
+                                        <td>N001</td>
+                                        <td>Jane Wilson</td>
+                                        <td>Dr. John Smith</td>
+                                        <td>555-9876</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">View Tasks</button>
+                                            <button class="btn btn-sm btn-warning">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>N002</td>
+                                        <td>Robert Davis</td>
+                                        <td>Dr. Sarah Johnson</td>
+                                        <td>555-4321</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">View Tasks</button>
+                                            <button class="btn btn-sm btn-warning">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Appointments Section -->
+                <div id="appointments" class="section" style="display: none;">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2>Appointments</h2>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addAppointmentModal">Schedule Appointment</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label for="appointmentType" class="form-label">Filter by Type:</label>
+                                <select id="appointmentType" class="form-select">
+                                    <option value="all">All</option>
+                                    <option value="checkup">Regular Checkup</option>
+                                    <option value="operation">Operation</option>
+                                    <option value="followup">Follow-up</option>
+                                </select>
+                            </div>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Patient</th>
+                                        <th>Doctor</th>
+                                        <th>Type</th>
+                                        <th>Date & Time</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="appointmentsList">
+                                    <tr>
+                                        <td>A001</td>
+                                        <td>Michael Brown</td>
+                                        <td>Dr. John Smith</td>
+                                        <td>Checkup</td>
+                                        <td>2023-06-15 10:00 AM</td>
+                                        <td><span class="badge bg-success">Confirmed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">Details</button>
+                                            <button class="btn btn-sm btn-warning">Reschedule</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>A002</td>
+                                        <td>Emily Wilson</td>
+                                        <td>Dr. Sarah Johnson</td>
+                                        <td>Operation</td>
+                                        <td>2023-06-16 09:30 AM</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">Details</button>
+                                            <button class="btn btn-sm btn-warning">Reschedule</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tasks Section -->
+                <div id="tasks" class="section" style="display: none;">
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h2>Nurse Tasks</h2>
+                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addTaskModal">Assign Task</button>
+                        </div>
+                        <div class="card-body">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Task</th>
+                                        <th>Patient</th>
+                                        <th>Assigned Nurse</th>
+                                        <th>Due Date</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tasksList">
+                                    <tr>
+                                        <td>T001</td>
+                                        <td>Administer Medication</td>
+                                        <td>Michael Brown</td>
+                                        <td>Jane Wilson</td>
+                                        <td>2023-06-15 12:00 PM</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success">Complete</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>T002</td>
+                                        <td>Check Vitals</td>
+                                        <td>Emily Wilson</td>
+                                        <td>Robert Davis</td>
+                                        <td>2023-06-15 02:30 PM</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success">Complete</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Doctor Modal -->
+    <div class="modal fade" id="addDoctorModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Doctor</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addDoctorForm">
+                        <div class="mb-3">
+                            <label for="doctorName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="doctorName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="doctorSpecialization" class="form-label">Specialization</label>
+                            <input type="text" class="form-control" id="doctorSpecialization" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="doctorContact" class="form-label">Contact</label>
+                            <input type="text" class="form-control" id="doctorContact" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="doctorEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="doctorEmail" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveDoctorBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Nurse Modal -->
+    <div class="modal fade" id="addNurseModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Add New Nurse</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addNurseForm">
+                        <div class="mb-3">
+                            <label for="nurseName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="nurseName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nurseDoctor" class="form-label">Assign to Doctor</label>
+                            <select class="form-select" id="nurseDoctor" required>
+                                <option value="">Select Doctor</option>
+                                <option value="D001">Dr. John Smith</option>
+                                <option value="D002">Dr. Sarah Johnson</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nurseContact" class="form-label">Contact</label>
+                            <input type="text" class="form-control" id="nurseContact" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="nurseEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="nurseEmail" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveNurseBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Appointment Modal -->
+    <div class="modal fade" id="addAppointmentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Schedule Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addAppointmentForm">
+                        <div class="mb-3">
+                            <label for="appointmentPatient" class="form-label">Patient Name</label>
+                            <input type="text" class="form-control" id="appointmentPatient" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentDoctor" class="form-label">Doctor</label>
+                            <select class="form-select" id="appointmentDoctor" required>
+                                <option value="">Select Doctor</option>
+                                <option value="D001">Dr. John Smith</option>
+                                <option value="D002">Dr. Sarah Johnson</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentTypeSelect" class="form-label">Appointment Type</label>
+                            <select class="form-select" id="appointmentTypeSelect" required>
+                                <option value="checkup">Regular Checkup</option>
+                                <option value="operation">Operation</option>
+                                <option value="followup">Follow-up</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentDate" class="form-label">Date</label>
+                            <input type="date" class="form-control" id="appointmentDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentTime" class="form-label">Time</label>
+                            <input type="time" class="form-control" id="appointmentTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="appointmentNotes" class="form-label">Notes</label>
+                            <textarea class="form-control" id="appointmentNotes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveAppointmentBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Task Modal -->
+    <div class="modal fade" id="addTaskModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Assign Task</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addTaskForm">
+                        <div class="mb-3">
+                            <label for="taskType" class="form-label">Task Type</label>
+                            <select class="form-select" id="taskType" required>
+                                <option value="">Select Task Type</option>
+                                <option value="medication">Administer Medication</option>
+                                <option value="vitals">Check Vitals</option>
+                                <option value="injection">Give Injection</option>
+                                <option value="saline">Check Saline</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskPatient" class="form-label">Patient</label>
+                            <input type="text" class="form-control" id="taskPatient" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskNurse" class="form-label">Assign to Nurse</label>
+                            <select class="form-select" id="taskNurse" required>
+                                <option value="">Select Nurse</option>
+                                <option value="N001">Jane Wilson</option>
+                                <option value="N002">Robert Davis</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskDate" class="form-label">Due Date</label>
+                            <input type="date" class="form-control" id="taskDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskTime" class="form-label">Due Time</label>
+                            <input type="time" class="form-control" id="taskTime" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="taskNotes" class="form-label">Instructions</label>
+                            <textarea class="form-control" id="taskNotes" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveTaskBtn">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
