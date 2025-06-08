@@ -499,18 +499,29 @@ function updateAppointmentStatus(appointmentId, status) {
         appointment.status = status;
         
         // Update in the schedule modal
-        const scheduleRow = document.querySelector(`#scheduleList tr:has(button[onclick*="${appointmentId}"])`);
+        const scheduleRow = document.querySelector(`#scheduleList tr`);
         if (scheduleRow) {
-            const statusCell = scheduleRow.cells[3];
-            statusCell.innerHTML = `<span class="badge bg-${status === 'confirmed' ? 'success' : status === 'cancelled' ? 'danger' : 'warning'}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>`;
+            // Find the row that contains the appointment ID
+            const rows = document.querySelectorAll('#scheduleList tr');
+            rows.forEach(row => {
+                const buttons = row.querySelectorAll('button');
+                buttons.forEach(button => {
+                    if (button.getAttribute('onclick') && button.getAttribute('onclick').includes(appointmentId)) {
+                        const statusCell = row.cells[3];
+                        statusCell.innerHTML = `<span class="badge bg-${status === 'confirmed' ? 'success' : status === 'cancelled' ? 'danger' : 'warning'}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>`;
+                    }
+                });
+            });
         }
         
         // Update in the main appointments table
-        const appointmentRow = document.querySelector(`#appointmentsList tr:has(td:first-child:contains("${appointmentId}"))`);
-        if (appointmentRow) {
-            const statusCell = appointmentRow.cells[5];
-            statusCell.innerHTML = `<span class="badge bg-${status === 'confirmed' ? 'success' : status === 'cancelled' ? 'danger' : 'warning'}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>`;
-        }
+        const rows = document.querySelectorAll('#appointmentsList tr');
+        rows.forEach(row => {
+            if (row.cells[0] && row.cells[0].textContent === appointmentId) {
+                const statusCell = row.cells[5];
+                statusCell.innerHTML = `<span class="badge bg-${status === 'confirmed' ? 'success' : status === 'cancelled' ? 'danger' : 'warning'}">${status.charAt(0).toUpperCase() + status.slice(1)}</span>`;
+            }
+        });
         
         // If appointment is confirmed and has a nurse assigned, notify the nurse
         if (status === 'confirmed' && appointment.nurseId) {
@@ -614,12 +625,17 @@ function updateDoctor() {
         doctor.email = email;
         
         // Update in the table
-        const doctorRow = document.querySelector(`#doctorsList tr:has(button[onclick*="${doctorId}"])`);
-        if (doctorRow) {
-            doctorRow.cells[1].textContent = name;
-            doctorRow.cells[2].textContent = specialization;
-            doctorRow.cells[3].textContent = contact;
-        }
+        const rows = document.querySelectorAll('#doctorsList tr');
+        rows.forEach(row => {
+            const buttons = row.querySelectorAll('button');
+            buttons.forEach(button => {
+                if (button.getAttribute('onclick') && button.getAttribute('onclick').includes(doctorId)) {
+                    row.cells[1].textContent = name;
+                    row.cells[2].textContent = specialization;
+                    row.cells[3].textContent = contact;
+                }
+            });
+        });
         
         // Update doctor dropdowns
         updateDoctorDropdowns();
@@ -728,27 +744,34 @@ function completeTask(taskId) {
         task.status = 'completed';
         
         // Update in the nurse tasks modal
-        const taskRow = document.querySelector(`#nurseTasksList tr:has(button[onclick*="${taskId}"])`);
-        if (taskRow) {
-            const statusCell = taskRow.cells[3];
-            statusCell.innerHTML = '<span class="badge bg-success">Completed</span>';
-            
-            const actionCell = taskRow.cells[4];
-            actionCell.innerHTML = '<button class="btn btn-sm btn-success" disabled>Completed</button>';
-        }
+        const nurseTaskRows = document.querySelectorAll('#nurseTasksList tr');
+        nurseTaskRows.forEach(row => {
+            const buttons = row.querySelectorAll('button');
+            buttons.forEach(button => {
+                if (button.getAttribute('onclick') && button.getAttribute('onclick').includes(taskId)) {
+                    const statusCell = row.cells[3];
+                    statusCell.innerHTML = '<span class="badge bg-success">Completed</span>';
+                    
+                    const actionCell = row.cells[4];
+                    actionCell.innerHTML = '<button class="btn btn-sm btn-success" disabled>Completed</button>';
+                }
+            });
+        });
         
         // Update in the main tasks table
-        const mainTaskRow = document.querySelector(`#tasksList tr:has(td:first-child:contains("${taskId}"))`);
-        if (mainTaskRow) {
-            const statusCell = mainTaskRow.cells[5];
-            statusCell.innerHTML = '<span class="badge bg-success">Completed</span>';
-            
-            const actionCell = mainTaskRow.cells[6];
-            const completeBtn = actionCell.querySelector('button');
-            if (completeBtn) {
-                completeBtn.disabled = true;
+        const mainTaskRows = document.querySelectorAll('#tasksList tr');
+        mainTaskRows.forEach(row => {
+            if (row.cells[0] && row.cells[0].textContent === taskId) {
+                const statusCell = row.cells[5];
+                statusCell.innerHTML = '<span class="badge bg-success">Completed</span>';
+                
+                const actionCell = row.cells[6];
+                const completeBtn = actionCell.querySelector('button');
+                if (completeBtn) {
+                    completeBtn.disabled = true;
+                }
             }
-        }
+        });
     }
 }
 
@@ -856,12 +879,17 @@ function updateNurse() {
         const doctorName = doctor ? doctor.name : 'Unknown';
         
         // Update in the table
-        const nurseRow = document.querySelector(`#nursesList tr:has(button[onclick*="${nurseId}"])`);
-        if (nurseRow) {
-            nurseRow.cells[1].textContent = name;
-            nurseRow.cells[2].textContent = doctorName;
-            nurseRow.cells[3].textContent = contact;
-        }
+        const rows = document.querySelectorAll('#nursesList tr');
+        rows.forEach(row => {
+            const buttons = row.querySelectorAll('button');
+            buttons.forEach(button => {
+                if (button.getAttribute('onclick') && button.getAttribute('onclick').includes(nurseId)) {
+                    row.cells[1].textContent = name;
+                    row.cells[2].textContent = doctorName;
+                    row.cells[3].textContent = contact;
+                }
+            });
+        });
         
         // Update nurse dropdowns
         updateNurseDropdowns();

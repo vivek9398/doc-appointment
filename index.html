@@ -6,11 +6,14 @@
     <title>Doctor OP Scheduling System</title>
     <link rel="stylesheet" href="styles.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
     <div class="container">
         <header class="my-4">
-            <h1 class="text-center">Doctor OP Scheduling System</h1>
+            <h1 class="text-center"><i class="fas fa-hospital-user me-2"></i>Doctor OP Scheduling System</h1>
+            <p class="text-center text-white mt-2">Streamline your medical practice with our comprehensive scheduling solution</p>
         </header>
 
         <div class="row">
@@ -21,11 +24,11 @@
                     </div>
                     <div class="card-body">
                         <ul class="nav flex-column">
-                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('dashboard')">Dashboard</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('doctors')">Doctors</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('nurses')">Nurses</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('appointments')">Appointments</a></li>
-                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('tasks')">Tasks</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('dashboard')"><i class="fas fa-chart-line nav-icon"></i>Dashboard</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('doctors')"><i class="fas fa-user-md nav-icon"></i>Doctors</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('nurses')"><i class="fas fa-user-nurse nav-icon"></i>Nurses</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('appointments')"><i class="fas fa-calendar-check nav-icon"></i>Appointments</a></li>
+                            <li class="nav-item"><a class="nav-link" href="#" onclick="showSection('tasks')"><i class="fas fa-tasks nav-icon"></i>Tasks</a></li>
                         </ul>
                     </div>
                 </div>
@@ -42,25 +45,34 @@
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="card text-white bg-primary mb-3">
-                                        <div class="card-header">Today's Appointments</div>
+                                        <div class="card-header"><i class="fas fa-calendar-day me-2"></i>Today's Appointments</div>
                                         <div class="card-body">
                                             <h3 class="card-title">12</h3>
+                                            <div class="progress mt-2" style="height: 5px;">
+                                                <div class="progress-bar" role="progressbar" style="width: 75%;" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="card text-white bg-success mb-3">
-                                        <div class="card-header">Doctors Available</div>
+                                        <div class="card-header"><i class="fas fa-user-md me-2"></i>Doctors Available</div>
                                         <div class="card-body">
                                             <h3 class="card-title">5</h3>
+                                            <div class="progress mt-2" style="height: 5px;">
+                                                <div class="progress-bar" role="progressbar" style="width: 90%;" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="card text-white bg-info mb-3">
-                                        <div class="card-header">Pending Tasks</div>
+                                        <div class="card-header"><i class="fas fa-clipboard-list me-2"></i>Pending Tasks</div>
                                         <div class="card-body">
                                             <h3 class="card-title">8</h3>
+                                            <div class="progress mt-2" style="height: 5px;">
+                                                <div class="progress-bar" role="progressbar" style="width: 60%;" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
