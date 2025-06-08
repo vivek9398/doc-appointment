@@ -35,6 +35,19 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
+    // Add event listeners to appointment buttons
+    document.querySelectorAll('#appointmentsList button').forEach(button => {
+        if (button.textContent === 'Details') {
+            const row = button.closest('tr');
+            const appointmentId = row.cells[0].textContent;
+            button.onclick = () => viewAppointmentDetails(appointmentId);
+        } else if (button.textContent === 'Reschedule') {
+            const row = button.closest('tr');
+            const appointmentId = row.cells[0].textContent;
+            button.onclick = () => rescheduleAppointment(appointmentId);
+        }
+    });
+    
     // Add event listeners for form submissions
     document.getElementById('saveDoctorBtn').addEventListener('click', saveDoctor);
     document.getElementById('saveNurseBtn').addEventListener('click', saveNurse);
@@ -253,8 +266,8 @@ function addAppointmentToTable(appointment) {
         <td>${dateTime}</td>
         <td><span class="badge bg-warning">${appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}</span></td>
         <td>
-            <button class="btn btn-sm btn-info">Details</button>
-            <button class="btn btn-sm btn-warning">Reschedule</button>
+            <button class="btn btn-sm btn-info" onclick="viewAppointmentDetails('${appointment.id}')">Details</button>
+            <button class="btn btn-sm btn-warning" onclick="rescheduleAppointment('${appointment.id}')">Reschedule</button>
         </td>
     `;
     
@@ -897,5 +910,207 @@ function updateNurse() {
         // Close modal
         const modal = bootstrap.Modal.getInstance(document.getElementById('editNurseModal'));
         modal.hide();
+    }
+}
+// Function to view appointment details
+function viewAppointmentDetails(appointmentId) {
+    const appointment = appointments.find(a => a.id === appointmentId);
+    if (!appointment) return;
+    
+    // Find the doctor name
+    const doctor = doctors.find(d => d.id === appointment.doctorId);
+    const doctorName = doctor ? doctor.name : 'Unknown';
+    
+    // Create modal for viewing appointment details
+    const modalHtml = `
+    <div class="modal fade" id="viewAppointmentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Appointment Details</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="appointment-details">
+                        <div class="row mb-3">
+                            <div class="col-md-4">
+                                <img src="https://img.freepik.com/free-vector/appointment-booking-with-calendar_23-2148553008.jpg" class="img-fluid rounded" alt="Appointment">
+                            </div>
+                            <div class="col-md-8">
+                                <h4>${appointment.patient}</h4>
+                                <p class="text-muted">Appointment ID: ${appointment.id}</p>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-bold">Doctor:</div>
+                                    <div class="col-md-8">${doctorName}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-bold">Type:</div>
+                                    <div class="col-md-8">${appointment.type.charAt(0).toUpperCase() + appointment.type.slice(1)}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-bold">Date:</div>
+                                    <div class="col-md-8">${appointment.date}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-bold">Time:</div>
+                                    <div class="col-md-8">${appointment.time}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-bold">Status:</div>
+                                    <div class="col-md-8">
+                                        <span class="badge bg-${appointment.status === 'confirmed' ? 'success' : appointment.status === 'cancelled' ? 'danger' : 'warning'}">
+                                            ${appointment.status.charAt(0).toUpperCase() + appointment.status.slice(1)}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-bold">Notes:</div>
+                                    <div class="col-md-8">${appointment.notes || 'No notes available'}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-warning" onclick="rescheduleAppointment('${appointmentId}')">Reschedule</button>
+                    <button type="button" class="btn btn-${appointment.status === 'confirmed' ? 'danger' : 'success'}" 
+                            onclick="updateAppointmentStatus('${appointmentId}', '${appointment.status === 'confirmed' ? 'cancelled' : 'confirmed'}')">
+                            ${appointment.status === 'confirmed' ? 'Cancel' : 'Confirm'} Appointment
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+    
+    // Remove any existing modal
+    const existingModal = document.getElementById('viewAppointmentModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Add modal to body
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('viewAppointmentModal'));
+    modal.show();
+}
+
+// Function to reschedule appointment
+function rescheduleAppointment(appointmentId) {
+    const appointment = appointments.find(a => a.id === appointmentId);
+    if (!appointment) return;
+    
+    // Close any existing appointment details modal
+    const detailsModal = document.getElementById('viewAppointmentModal');
+    if (detailsModal) {
+        const bsModal = bootstrap.Modal.getInstance(detailsModal);
+        if (bsModal) bsModal.hide();
+    }
+    
+    // Create modal for rescheduling
+    const modalHtml = `
+    <div class="modal fade" id="rescheduleAppointmentModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Reschedule Appointment</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row mb-3">
+                        <div class="col-md-4">
+                            <img src="https://img.freepik.com/free-vector/calendar-icon-date-reminder-graphic-illustration_53876-8586.jpg" class="img-fluid rounded" alt="Reschedule">
+                        </div>
+                        <div class="col-md-8">
+                            <h4>Reschedule for ${appointment.patient}</h4>
+                            <p class="text-muted">Current appointment: ${appointment.date} at ${appointment.time}</p>
+                        </div>
+                    </div>
+                    <form id="rescheduleForm">
+                        <input type="hidden" id="rescheduleAppointmentId" value="${appointmentId}">
+                        <div class="mb-3">
+                            <label for="rescheduleDate" class="form-label">New Date</label>
+                            <input type="date" class="form-control" id="rescheduleDate" value="${appointment.date}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rescheduleTime" class="form-label">New Time</label>
+                            <input type="time" class="form-control" id="rescheduleTime" value="${appointment.time}" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rescheduleReason" class="form-label">Reason for Rescheduling</label>
+                            <textarea class="form-control" id="rescheduleReason" rows="3"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="saveReschedule()">Save Changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+    
+    // Remove any existing modal
+    const existingModal = document.getElementById('rescheduleAppointmentModal');
+    if (existingModal) {
+        existingModal.remove();
+    }
+    
+    // Add modal to body
+    document.body.insertAdjacentHTML('beforeend', modalHtml);
+    
+    // Show modal
+    const modal = new bootstrap.Modal(document.getElementById('rescheduleAppointmentModal'));
+    modal.show();
+}
+
+// Function to save rescheduled appointment
+function saveReschedule() {
+    const appointmentId = document.getElementById('rescheduleAppointmentId').value;
+    const newDate = document.getElementById('rescheduleDate').value;
+    const newTime = document.getElementById('rescheduleTime').value;
+    const reason = document.getElementById('rescheduleReason').value;
+    
+    if (!newDate || !newTime) {
+        alert('Please select a new date and time');
+        return;
+    }
+    
+    // Find and update the appointment
+    const appointment = appointments.find(a => a.id === appointmentId);
+    if (appointment) {
+        // Store old values for notification
+        const oldDate = appointment.date;
+        const oldTime = appointment.time;
+        
+        // Update appointment
+        appointment.date = newDate;
+        appointment.time = newTime;
+        if (reason) {
+            appointment.notes = appointment.notes ? `${appointment.notes}\nRescheduled: ${reason}` : `Rescheduled: ${reason}`;
+        }
+        
+        // Update in the appointments table
+        const rows = document.querySelectorAll('#appointmentsList tr');
+        rows.forEach(row => {
+            if (row.cells[0] && row.cells[0].textContent === appointmentId) {
+                row.cells[4].textContent = `${newDate} ${newTime}`;
+            }
+        });
+        
+        // Close modal
+        const modal = bootstrap.Modal.getInstance(document.getElementById('rescheduleAppointmentModal'));
+        modal.hide();
+        
+        // Show confirmation
+        alert(`Appointment for ${appointment.patient} has been rescheduled from ${oldDate} ${oldTime} to ${newDate} ${newTime}`);
     }
 }

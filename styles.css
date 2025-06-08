@@ -1,20 +1,24 @@
 /* Main Styles */
 :root {
-    --primary-color: #2c3e50;
-    --secondary-color: #3498db;
-    --accent-color: #1abc9c;
+    --primary-color: #1a5276;
+    --secondary-color: #2e86c1;
+    --accent-color: #16a085;
     --light-color: #ecf0f1;
-    --dark-color: #34495e;
-    --success-color: #2ecc71;
+    --dark-color: #2c3e50;
+    --success-color: #27ae60;
     --warning-color: #f39c12;
-    --danger-color: #e74c3c;
+    --danger-color: #c0392b;
     --info-color: #3498db;
+    --section-bg-1: #e8f4fc;
+    --section-bg-2: #e0f7fa;
+    --section-bg-3: #e8f5e9;
+    --section-bg-4: #fff8e1;
 }
 
 body {
     background-color: #f8f9fa;
     font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-image: url('https://img.freepik.com/free-vector/clean-medical-background_53876-97927.jpg');
+    background-image: url('https://img.freepik.com/free-vector/abstract-medical-wallpaper-template-design_53876-61802.jpg');
     background-size: cover;
     background-attachment: fixed;
     background-position: center;
@@ -28,7 +32,7 @@ body::before {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.92);
     z-index: -1;
 }
 
@@ -64,6 +68,8 @@ header h1 {
     margin-bottom: 25px;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     overflow: hidden;
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.8));
+    backdrop-filter: blur(10px);
 }
 
 .card:hover {
@@ -76,6 +82,8 @@ header h1 {
     font-weight: 600;
     padding: 15px 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    background-image: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+    color: white;
 }
 
 .card-body {
@@ -201,17 +209,19 @@ header h1 {
     border: none;
     border-radius: 12px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    background-image: linear-gradient(to bottom right, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.9));
 }
 
 .modal-header {
-    background-color: var(--light-color);
+    background-image: linear-gradient(to right, var(--primary-color), var(--secondary-color));
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
     padding: 15px 20px;
+    color: white;
 }
 
 .modal-header .modal-title {
     font-weight: 600;
-    color: var(--dark-color);
+    color: white;
 }
 
 .modal-body {
@@ -356,4 +366,184 @@ header h1 {
 
 ::-webkit-scrollbar-thumb:hover {
     background: #2980b9;
+}
+/* Section-specific backgrounds */
+#dashboard {
+    background-image: url('https://img.freepik.com/free-vector/medical-healthcare-blue-color_1017-26807.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#dashboard::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: -1;
+    border-radius: 12px;
+}
+
+#doctors {
+    background-image: url('https://img.freepik.com/free-vector/doctor-character-background_1270-84.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#doctors::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: -1;
+    border-radius: 12px;
+}
+
+#nurses {
+    background-image: url('https://img.freepik.com/free-vector/nurse-concept-illustration_114360-3570.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#nurses::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: -1;
+    border-radius: 12px;
+}
+
+#appointments {
+    background-image: url('https://img.freepik.com/free-vector/appointment-booking-with-woman-calendar_23-2148559014.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#appointments::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: -1;
+    border-radius: 12px;
+}
+
+#tasks {
+    background-image: url('https://img.freepik.com/free-vector/time-management-concept-illustration_114360-1013.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    border-radius: 12px;
+    padding: 20px;
+}
+
+#tasks::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.9);
+    z-index: -1;
+    border-radius: 12px;
+}
+/* Image styles for modals and sections */
+.appointment-details img,
+.modal-body img {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.appointment-details img:hover,
+.modal-body img:hover {
+    transform: scale(1.05);
+}
+
+/* Card image overlays */
+.card-with-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.card-with-image::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    opacity: 0.2;
+    z-index: 0;
+}
+
+/* Animation for section transitions */
+@keyframes fadeInScale {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.section {
+    animation: fadeInScale 0.5s ease forwards;
+}
+
+/* Custom scrollbar for modals */
+.modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 10px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: var(--secondary-color);
+    border-radius: 10px;
+}
+
+/* Decorative elements */
+.section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background-image: linear-gradient(to right, var(--primary-color), var(--secondary-color), var(--accent-color));
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
 }
